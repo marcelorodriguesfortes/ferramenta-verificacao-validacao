@@ -1,0 +1,716 @@
+
+/*---------------Verificação de conformidade entre modelos e DSML -----------------------------------*/
+
+context Synthesis!Manager{
+
+	  constraint verificacaoCamadaSynthesis{
+	 		
+	 		check{
+			  if(Synthesis!Manager <> null)
+			    return false;
+			  else{ 
+				println("O modelo da camada Synthesis é nulo");
+				return true;
+			  }
+			}
+				      
+			message{ 
+			
+			    var msgErro = ""; 
+				var relacionamentos = RelacionamentoSynthesis!Relacionamento.allInstances; //Obtendo todos relacionamentos
+				var nomeFeature; //Variável que armazena o nome da feature referenciada em um relacionamento
+				var qtdInstanciasModeloMiddleware = null; //Armazena a quantidade de instâncias de elementos no modelo do middleware
+	
+				for (elemento in relacionamentos){
+					 
+					 qtdInstanciasModeloMiddleware = null;
+					   
+					 if (elemento.refFeature <> null){ //Verificando se tem uma referência a uma feature
+					     nomeFeature = elemento.refFeature.features.nome; //Obtendo o nome da feature
+					 }
+					        
+					 for(ref in elemento.refConstrucaoMetamodeloMiddleware){ //Iteração sobre as referências a construções do metamodelo de middleware
+						 
+						 if(ref.construcaoMetamodeloMiddleware.name == "MacroAction"){
+						    qtdInstanciasModeloMiddleware = Synthesis!MacroAction.allInstances.select(MacroAction|MacroAction.featureDSML.exists(featureDSML|featureDSML == nomeFeature));
+						    
+						    if( ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de MacroAction na camada Synthesis \n";
+						 	}
+						 } 
+						 
+						 if(ref.construcaoMetamodeloMiddleware.name == "Handler"){
+						    qtdInstanciasModeloMiddleware = Synthesis!Handler.allInstances.select(Handler|Handler.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						   
+						    if( ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Handler na camada Synthesis \n";
+							}
+						 } 
+						      	  
+						 if(ref.construcaoMetamodeloMiddleware.name == "Manager"){
+						    qtdInstanciasModeloMiddleware = Synthesis!Manager.allInstances.select(Manager|Manager.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						       ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Manager na camada Synthesis \n";
+						 	}
+						 }
+						   
+						 if(ref.construcaoMetamodeloMiddleware.name == "StateManager"){
+						    qtdInstanciasModeloMiddleware = Synthesis!StateManager.allInstances.select(StateManager|StateManager.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de StateManager na camada Synthesis \n";
+						 	}
+						 }
+						 
+						 if(ref.construcaoMetamodeloMiddleware.name == "Interface"){
+						    qtdInstanciasModeloMiddleware = Synthesis!Interface.allInstances.select(Interface|Interface.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Interfaces na camada Synthesis \n";
+						 	}
+						 }
+						 
+						  if(ref.construcaoMetamodeloMiddleware.name == "Event"){
+						    qtdInstanciasModeloMiddleware = Synthesis!Event.allInstances.select(Event|Event.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Events na camada Synthesis \n";
+						 	}
+						 }
+						 
+						 if(ref.construcaoMetamodeloMiddleware.name == "Call"){
+						    qtdInstanciasModeloMiddleware = Synthesis!Call.allInstances.select(Call|Call.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						        msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Calls na camada Synthesis \n";
+						 	}
+						 }
+			     	  
+					}
+					       
+				}
+				
+				if(msgErro <> ""){
+					return msgErro;
+				}
+				else
+				return "Camada Synthesis está em conformidade com a DSML \n";
+	      	}		  
+	   }
+	   
+	   
+	    constraint verificacaoCamadaController{
+	 		check{
+			  if(Controller!Manager <> null)
+			    return false;
+			  else{ 
+				println("O modelo do middleware é nulo");
+				return true;
+			  }
+			}
+				      
+			message{ 
+				var msgErro = ""; 	  
+				var relacionamentos = RelacionamentoController!Relacionamento.allInstances; //Obtendo todos relacionamentos
+				var nomeFeature; //Variável que armazena o nome da feature referenciada em um relacionamento
+				var qtdInstanciasModeloMiddleware = null; //Armazena a quantidade de instâncias de elementos no modelo do middleware
+	
+				for (elemento in relacionamentos){
+					 
+					 qtdInstanciasModeloMiddleware = null;
+					   
+					 if (elemento.refFeature <> null){ //Verificando se tem uma referência a uma feature
+					     nomeFeature = elemento.refFeature.features.nome; //Obtendo o nome da feature
+					 }
+					        
+					 for(ref in elemento.refConstrucaoMetamodeloMiddleware){ //Iteração sobre as referências a construções do metamodelo de middleware
+						 
+						 if(ref.construcaoMetamodeloMiddleware.name == "MacroAction"){
+						    qtdInstanciasModeloMiddleware = Controller!MacroAction.allInstances.select(MacroAction|MacroAction.featureDSML.exists(featureDSML|featureDSML == nomeFeature));
+						    
+						    if( ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de MacroAction na camada Controller \n";
+						 	}
+						 }
+						  
+						 
+						 if(ref.construcaoMetamodeloMiddleware.name == "Handler"){
+						    qtdInstanciasModeloMiddleware = Controller!Handler.allInstances.select(Handler|Handler.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						    if( ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Handler na camada Controller \n";
+						 	}
+						 } 
+						      	  
+						 if(ref.construcaoMetamodeloMiddleware.name == "Manager"){
+						    qtdInstanciasModeloMiddleware = Controller!Manager.allInstances.select(Manager|Manager.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						       ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Manager  na camada Controller \n";
+						 	}
+						 }
+						   
+						 if(ref.construcaoMetamodeloMiddleware.name == "StateManager"){
+						    qtdInstanciasModeloMiddleware = Controller!StateManager.allInstances.select(StateManager|StateManager.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de StateManager  na camada Controller \n";
+						 	}
+						 }
+						 
+						  if(ref.construcaoMetamodeloMiddleware.name == "Interface"){
+						    qtdInstanciasModeloMiddleware = Controller!Interface.allInstances.select(Interface|Interface.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Interfaces na camada Controller \n";
+						 	}
+						 }
+						 
+						  if(ref.construcaoMetamodeloMiddleware.name == "Event"){
+						    qtdInstanciasModeloMiddleware = Controller!Event.allInstances.select(Event|Event.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Events na camada Controller \n";
+						 	}
+						 }
+						 
+						 if(ref.construcaoMetamodeloMiddleware.name == "Call"){
+						    qtdInstanciasModeloMiddleware = Controller!Call.allInstances.select(Call|Call.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Calls na camada Controller \n";
+						 	}
+						 }
+			     	  
+					}
+					       
+				}
+				if(msgErro <> ""){
+					return msgErro;
+				}else
+					return "Camada Controller está em conformidade com a DSML \n";
+	      	}		  
+	   }
+	   
+	   
+	   
+	   
+	    constraint verificacaoCamadaBroker{
+	 		check{
+			  if(Broker!Manager <> null)
+			    return false;
+			  else{ 
+				println("O modelo da camada Broker é nulo");
+				return true;
+			  }
+			}
+				      
+			message{ 
+				var msgErro = "";	  
+				var relacionamentos = RelacionamentoBroker!Relacionamento.allInstances; //Obtendo todos relacionamentos
+				var nomeFeature; //Variável que armazena o nome da feature referenciada em um relacionamento
+				var qtdInstanciasModeloMiddleware = null; //Armazena a quantidade de instâncias de elementos no modelo do middleware
+	
+				for (elemento in relacionamentos){
+					 
+					 qtdInstanciasModeloMiddleware = null;
+					   
+					 if (elemento.refFeature <> null){ //Verificando se tem uma referência a uma feature
+					     nomeFeature = elemento.refFeature.features.nome; //Obtendo o nome da feature
+					 }
+					        
+					 for(ref in elemento.refConstrucaoMetamodeloMiddleware){ //Iteração sobre as referências a construções do metamodelo de middleware
+						 
+						 if(ref.construcaoMetamodeloMiddleware.name == "MacroAction"){
+						    qtdInstanciasModeloMiddleware = Broker!MacroAction.allInstances.select(MacroAction|MacroAction.featureDSML.exists(featureDSML|featureDSML == nomeFeature));
+						    
+						    if( ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de MacroAction na camada Broker \n";
+						 	}
+						 } 
+						 
+						 if(ref.construcaoMetamodeloMiddleware.name == "Handler"){
+						    qtdInstanciasModeloMiddleware = Broker!Handler.allInstances.select(Handler|Handler.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						    if( ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Handler na camada Broker \n";
+						 	}
+						 } 
+						      	  
+						 if(ref.construcaoMetamodeloMiddleware.name == "Manager"){
+						    qtdInstanciasModeloMiddleware = Broker!Manager.allInstances.select(Manager|Manager.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						       ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Manager  na camada Broker \n";
+						 	}
+						 }
+						   
+						 if(ref.construcaoMetamodeloMiddleware.name == "StateManager"){
+						    qtdInstanciasModeloMiddleware = Broker!StateManager.allInstances.select(StateManager|StateManager.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de StateManager  na camada Broker \n";
+						 	}
+						 }
+						 
+						 if(ref.construcaoMetamodeloMiddleware.name == "Interface"){
+						    qtdInstanciasModeloMiddleware = Broker!Interface.allInstances.select(Interface|Interface.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Interfaces na camada Broker \n";
+						 	}
+						 }
+						 
+						  if(ref.construcaoMetamodeloMiddleware.name == "Event"){
+						    qtdInstanciasModeloMiddleware = Broker!Event.allInstances.select(Event|Event.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Events na camada Broker \n";
+						 	}
+						 }
+						 
+						 if(ref.construcaoMetamodeloMiddleware.name == "Call"){
+						    qtdInstanciasModeloMiddleware = Broker!Call.allInstances.select(Call|Call.featureDSML.exists(featureDSML|featureDSML == nomeFeature ));
+						    
+						    if(ref.cardinalidadeMin > qtdInstanciasModeloMiddleware.size() or
+						      	ref.cardinalidadeMax < qtdInstanciasModeloMiddleware.size()){
+						      	msgErro = msgErro + "\n" + "Quantidade inadequada de instâncias de Calls na camada Broker \n";
+						 	}
+						 }
+			     	  
+					}
+					       
+				}
+				if(msgErro <> ""){
+					return msgErro;
+				}else
+					return "Camada Broker está em conformidade com a DSML \n";
+	      	}		  
+	   }
+	   
+	
+
+	
+	   
+	   
+	   
+	   
+/*---------------Verificação de consistência entre camadas-----------------------------------*/
+  
+	   constraint SintesisCallToController{
+		
+		check  {return false;}
+			
+		message {
+			var msgErro = "";
+			var handlers;
+			var MainManager = Controller!Manager.allInstances.selectOne(manager|manager.name = "MainManager");
+			var interfaceProvidaCamadaSynthesis = Synthesis!Interface.allInstances.selectOne(iterator|iterator.Name = "Provida");
+			var interfaceRequeridaCamadaSynthesis = Synthesis!Interface.allInstances.selectOne(iterator|iterator.Name = "Requerida");
+			
+			var interfaceProvidaMainManager = MainManager.iface.selectOne(interface|interface.Name = "Provida");
+			var interfaceRequeridaMainManager = MainManager.ifaceResourceManager.selectOne(interface|interface.Name = "Requerida");
+ 					
+ 					handlers = MainManager.handlers.select(handler|handler.signal <> null);
+ 					
+ 		       		//Verificando as dependências top-down entre as camadas Synthesis e Controller
+		  			for(chamada in interfaceRequeridaCamadaSynthesis.provides){
+		  				if (interfaceProvidaMainManager.provides.exists(provide|provide.name == chamada.name)){
+			  			    
+			  					if(handlers.size() > 1 and handlers.exists(handler|handler.signal.name == chamada.name)){
+			  						
+			  						
+			  						var handlerSelecionado = handlers.select(handler|handler.signal.name == chamada.name);
+			  						
+			  						if(handlerSelecionado.action.macroAction.exists(ma|ma <> null)){
+			  							//"MacroAction encontrada".println();
+			  						}else{
+			  						  msgErro = msgErro + "\nInconsistência entre as camadas  Controller  Synthesis: (não há uma MacroAction associada ao Handler do seguinte elemento: " + chamada.name + ")\n" ;
+			  						  msgErro = msgErro + "\n teste \n" ;
+			  						}
+		
+			  					}else{
+			  						msgErro = msgErro + "\nInconsistência entre as camadas Controller  Synthesis: (Não há um Handler para o seguinte elemento da interface da camada Controller: " + chamada.name + ")\n" ;
+			  					}
+		  				}else{
+		  					msgErro = msgErro + "\nInconsistência entre as camadas Controller  Synthesis: (elemento não encontrado na interface da camada Controller: " + chamada.name + ")\n" ;
+		  				}
+		  			}
+		  			
+		  			
+		  			handlers = Synthesis!Handler.allInstances.select(handler|handler.signal <> null);
+		            
+		  			//Verificando as dependências bottom-up entre as camadas Synthesis e Controller
+		  			for(evento in interfaceRequeridaMainManager.signals){
+		  				if (interfaceProvidaCamadaSynthesis.signals.exists(signal|signal.name == evento.name)){
+		  				    
+		  				    if(handlers.size() > 1 and handlers.exists(handler|handler.signal.name == evento.name)){
+		  					    
+		  						var handlerSelecionado = handlers.select(handler|handler.signal.name == evento.name);
+			  				    
+			  				    
+			  					
+			  					if(handlerSelecionado.action.macroAction.exists(ma|ma <> null)){
+		  							//"MacroAction encontrada".println();
+		  						}else{
+		  						  msgErro = msgErro + "\nInconsistência entre as camadas Synthesis e Controller: (não há uma MacroAction associada ao Handler do seguinte elemento na camada Synthesis: " + evento.name + ")\n" ;
+		  						  msgErro = msgErro + "\n teste \n" ;
+		  						}
+		  					}else{
+		  						msgErro = msgErro + "\nInconsistência entre as camadas Synthesis e Controller: (Não há um Handler para o seguinte elemento da interface da camada Synthesis: " + evento.name + ")\n" ;
+		  					}
+		  				}else{
+		  					msgErro = msgErro + "\nInconsistência entre as camadas Synthesis e Controller: (elemento não encontrado na interface da camada Synthesis ou não há um Handler para ele: " + evento.name + ")\n" ;
+		  				}
+		  			}
+ 		       
+ 		    
+            
+            if(msgErro <> ""){
+					return msgErro;
+				}else
+					return "Camada Synthesis está consistente com a camada Controller \n";           
+		}
+		 	 		
+	}
+	
+	
+	constraint ControllerToBroker{
+		
+		check  {return false;}
+			
+		message {
+		    msgErro = "";
+			var scriptManager = Controller!Manager.allInstances.selectOne(manager|manager.name = "ScriptManager");
+			var eventManager = Controller!Manager.allInstances.selectOne(manager|manager.name = "EventManager");
+			
+			//Processo para saber se há hierarquia de Managers na camada Broker.
+			var managers = Broker!Manager.allInstances;
+			var topManager;
+			
+			//Obtendo o Manager mais alto na hierarquia
+			if(managers.size() > 1)
+				topManager = managers[0];
+			else
+				topManager = managers;
+		  
+		    var handlers;
+			var interfaceProvidaCamadaBroker = topManager.iface.selectOne(interface|interface.Name = "Provida");
+			var interfaceRequeridaScriptManager = scriptManager.iface.selectOne(interface|interface.Name = "Requerida");
+  			
+  			var interfaceRequeridaCamadaBroker = topManager.iface.selectOne(interface|interface.Name = "Requerida");
+  			var interfaceProvidaEventManager = eventManager.iface.selectOne(interface|interface.Name = "Provida");
+  		
+  		    handlers = topManager.handlers.select(handler|handler.signal <> null);
+            
+  		        //Verificando as dependências top-down entre as camadas Controller e Broker
+	  			for(chamada in interfaceRequeridaScriptManager.provides){
+	  				if (interfaceProvidaCamadaBroker.provides.exists(provide|provide.name == chamada.name)){
+	  				    
+	  				    if(handlers.size() > 1 and handlers.exists(handler|handler.signal.name == chamada.name)){
+	  							
+	  							var handlerSelecionado = handlers.select(handler|handler.signal.name == chamada.name);
+			  				
+			  					if(handlerSelecionado.action.macroAction.exists(ma|ma <> null)){
+		  							//"MacroAction encontrada".println();
+		  						}else{
+		  						  msgErro = msgErro + "\nInconsistência entre as camadas Controller e Broker: (não há uma MacroAction associada ao Handler do seguinte elemento: " + chamada.name + ")\n" ;
+		  						  msgErro = msgErro + "\n teste \n" ;
+		  						}
+	  					}else{
+	  					   msgErro = msgErro + "\nInconsistência entre as camadas Controller e Broker: (Não há um Handler para o seguinte elemento da interface da camada Broker: " + chamada.name + ")\n" ;
+	  					}
+	  				}else{
+	  					msgErro = msgErro + "\nInconsistência entre as camadas Controller e Broker: (elemento não encontrado na interface da camada Broker: " + chamada.name + ")\n" ;
+	  				}
+	  			}
+	  			
+	  			handlers = eventManager.handlers.select(handler|handler.signal <> null);
+	  			//Verificando as dependências bottom-up entre as camadas Controller e Broker
+	  			for(evento in interfaceRequeridaCamadaBroker.signals){
+	  				if (interfaceProvidaEventManager.signals.exists(signal|signal.name == evento.name)){
+	  					 if(handlers.size() > 1 and handlers.exists(handler|handler.signal.name == evento.name)){
+		  						
+		  						var handlerSelecionado = handlers.select(handler|handler.signal.name == evento.name);
+			  				
+			  					if(handlerSelecionado.action.macroAction.exists(ma|ma <> null)){
+		  							//"MacroAction encontrada".println();
+		  						}else{
+		  						  msgErro = msgErro + "\nInconsistência entre as camadas Controller e Broker: (Não há uma MacroAction associada ao Handler do seguinte elemento na camada Controller: " + evento.name + ")\n" ;
+		  						  msgErro = msgErro + "\n teste \n" ;
+		  						}
+	  					}else{
+	  					    msgErro = msgErro + "\nInconsistência entre as camadas Controller e Broker: (Não há um Handler para o seguinte elemento da interface da camada Controller " + evento.name + ")\n" ;
+	  					}
+	  					
+	  				}else{
+	  					msgErro = msgErro + "\nInconsistência entre as camadas Controller e Broker: (elemento não encontrado na interface da camada Controller: " + evento.name + ")\n" ;
+	  				}
+  				}
+  		 
+  		   
+  			
+            if(msgErro <> ""){
+					return msgErro;
+			}else
+					return "Camada Controller está consistente com a camada Broker \n";    
+		}
+		 	 	
+	 }
+
+  	 constraint ConsistenciaInternaCamadaController{
+		
+		check  {return false;}
+			
+		message {
+			msgErro = "";
+			var exceptionManager = Controller!Manager.allInstances.selectOne(manager|manager.name = "ExceptionManager");
+			var mainManager = Controller!Manager.allInstances.selectOne(manager|manager.name = "MainManager");
+			var eventManager = Controller!Manager.allInstances.selectOne(manager|manager.name = "EventManager");
+			var scriptManager = Controller!Manager.allInstances.selectOne(manager|manager.name = "ScriptManager");
+			
+			var interfaceProvidaExceptionManager = exceptionManager.iface.selectOne(interface|interface.Name = "Provida");
+			var interfaceProvidaMainManager = mainManager.ifaceResourceManager.selectOne(interface|interface.Name = "Provida");
+			var interfaceRequeridaEventManagerExceptionManager = eventManager.iface.selectOne(interface|interface.Name = "RequeridaException");
+  			var interfaceRequeridaEventManagerMainManager = eventManager.iface.selectOne(interface|interface.Name = "RequeridaMainManager");
+  			
+  			var handlers  = exceptionManager.handlers.select(handler|handler.signal <> null);
+		  			//Verificando as dependências entre os componenetes EventManager e MainManager/ExceptionManager
+		  			for(evento in interfaceRequeridaEventManagerExceptionManager.signals){
+		  				if (interfaceProvidaExceptionManager.signals.exists(signal|signal.name == evento.name)){
+		  					if(handlers.size() > 1  and  handlers.exists(handler|handler.signal.name == evento.name)){
+		  						
+		  						var handlerSelecionado = handlers.select(handler|handler.signal.name == evento.name);
+			  				
+			  					if(handlerSelecionado.action.macroAction.exists(ma|ma <> null)){
+		  							//"MacroAction encontrada".println();
+		  						}else{
+		  						  msgErro = msgErro + "\nInconsistência entre os componentes EventManager e ExceptionManager: (Não há uma MacroAction associada ao Handler do seguinte elemento do componente ExceptionManager: " + evento.name + ")\n" ;
+		  						  msgErro = msgErro + "\n teste \n" ;
+		  						}
+	  						}else{
+	  					    	msgErro = msgErro + "\nInconsistência entre os componentes EventManager e ExceptionManager: (Não há um Handler para o seguinte elemento da interface do componente ExceptionManager" + evento.name + ")\n" ;
+	  						}
+		  				}else{
+		  					msgErro = msgErro + "\nInconsistência entre os componentes EventManager e ExceptionManager: (elemento não encontrado na interface do componente ExceptionManager ou não há um Handler para ele: " + evento.name + ")\n" ;
+		  				}
+		  			}
+		  			
+		  			handlers = mainManager.handlers.select(handler|handler.signal <> null);
+		  			
+		  			for(evento in interfaceRequeridaEventManagerMainManager.signals){
+		  				if (interfaceProvidaMainManager.signals.exists(signal|signal.name == evento.name)){
+		  					if(handlers.size() > 1 and handlers.exists(handler|handler.signal.name == evento.name)){
+		  						
+		  						var handlerSelecionado = handlers.select(handler|handler.signal.name == evento.name);
+			  				
+			  					if(handlerSelecionado.action.macroAction.exists(ma|ma <> null)){
+		  							//"MacroAction encontrada".println();
+		  						}else{
+		  						  msgErro = msgErro + "\nInconsistência entre os componentes EventManager e MainManager: (Não há uma MacroAction associada ao Handler do seguinte elemento do componente MainManager: " + evento.name + ")\n" ;
+		  						  msgErro = msgErro + "\n teste \n" ;
+		  						}
+	  						}else{
+	  					    	msgErro = msgErro + "\nInconsistência entre os componentes EventManager e MainManager: (Não há um Handler para o seguinte elemento da interface do componente MainManager" + evento.name + ")\n" ;
+	  						}
+		  				}else{
+		  					msgErro = msgErro + "\nInconsistência entre os componentes EventManager e MainManager: (elemento não encontrado na interface do componente MainManager ou não há um Handler para ele: " + evento.name + ")\n" ;
+		  				}
+		  			}
+		  	
+		  			
+  			if(msgErro <> ""){
+					return msgErro;
+			}else
+					return "\n";    
+           
+		}
+		 	 		
+	}
+	
+	constraint ConsistenciaInternaController{
+		
+		check  {return false;}
+			
+		message {
+			msgErro = "";
+			var exceptionManager = Controller!Manager.allInstances.selectOne(manager|manager.name = "ExceptionManager");
+			var mainManager = Controller!Manager.allInstances.selectOne(manager|manager.name = "MainManager");
+			
+			var interfaceRequeridaExceptionManager = exceptionManager.iface.selectOne(interface|interface.Name = "Requerida");
+			var interfaceProvidaMainManager = mainManager.ifaceResourceManager.selectOne(interface|interface.Name = "Provida");
+			
+  			var handlers = mainManager.handlers.select(handler|handler.signal <> null);
+  			
+  			//Verificando as dependências entre os componenetes ExceptionManager e MainManager
+  			for(evento in interfaceRequeridaExceptionManager.signals){
+  				if (interfaceProvidaMainManager.signals.exists(signal|signal.name == evento.name)){
+  					if(handlers.size() > 1 and handlers.exists(handler|handler.signal.name == evento.name)){
+		  						
+		  					var handlerSelecionado = handlers.select(handler|handler.signal.name == evento.name);
+			  				
+			  				if(handlerSelecionado.action.macroAction.exists(ma|ma <> null)){
+		  							//"MacroAction encontrada".println();
+		  					}else{
+		  					 	msgErro = msgErro + "\nInconsistência entre os componentes ExceptionManager e MainManager: (Não há uma MacroAction associada ao Handler do seguinte elemento do componente MainManager: " + evento.name + ")\n" ;
+		  					    msgErro = msgErro + "\n teste \n" ;
+		  					}
+	  				}else{
+	  					  msgErro = msgErro + "\nInconsistência entre os componentes ExceptionManager e MainManager: (Não há um Handler para o seguinte elemento da interface do componente MainManager" + evento.name + ")\n" ;
+	  				}
+  				}else{
+  					//msgErro = msgErro + "\nInconsistência entre os componentes ExceptionManager e MainManager: (elemento não encontrado na interface do componente MainManager ou não há um Handler para ele: " + evento.name + ")\n" ;
+  				}
+  			}
+            if(msgErro <> ""){
+					return msgErro;
+			}else
+					return "\n";   
+		}
+	
+	}
+ 
+	
+	constraint ConsistenciaInternaCamadaBroker{
+		
+		check  {return false;}
+			
+		message {
+			msgErro = "";
+			//Processo para saber se há hierarquia de Managers.
+			var managers = Broker!Manager.allInstances;
+			
+			//Obtendo o Manager mais alto na hierarquia
+			var topManager = managers[0];
+	        
+			//Se a quantidade de Managers em um modelo for maior que 1, então há hierarquia.
+		    if(managers.size() > 1){
+				 var interfaceRequerida = null;
+				 var interfaceProvida = null;
+				 var resManager;
+				 var managerTop;
+				 var managerBottom;
+				 var i = 0;
+	              
+	               //Verificando as dependências top-down entre os Managers
+					while (i < (managers.size() - 1)){
+						   managerTop = managers[i];
+						   i = i + 1;
+						   managerBottom = managers[i];
+						 
+					 	   interfaceRequerida = null;
+						   interfaceProvida = null;
+					 	   
+					 	   interfaceRequerida =  managerTop.iface.selectOne(interface|interface.Name = "Requerida");
+					 	   interfaceProvida = managerBottom.iface.selectOne(interface|interface.Name = "Provida");
+					 	   
+					 	   var handlers = managerBottom.handlers.select(handler|handler.signal.name <> null);
+					 	   
+					 	   if(interfaceRequerida <> null and interfaceProvida <> null){
+						 	   for(chamada in interfaceRequerida.provides){
+		  							if (interfaceProvida.provides.exists(provides|provides.name == chamada.name)){
+		  								
+		  								if(handlers.size() > 1 and handlers.exists(handler|handler.signal.name == chamada.name)){
+		  									
+		  									var handlerSelecionado = handlers.select(handler|handler.signal.name == chamada.name);
+			  				
+			  								if(handlerSelecionado.action.macroAction.exists(ma|ma <> null)){
+		  										//"MacroAction encontrada".println();
+						  					}else{
+						  					 	msgErro = msgErro + "\nInconsistência entre o TopManager e o BottomManager: (Não há uma MacroAction associada ao Handler do seguinte elemento do ManagerBottom: " + evento.name + ")\n" ;
+						  					    msgErro = msgErro + "\n teste \n" ;
+						  					}
+		  								}else{
+		  									msgErro = msgErro + "\nInconsistência entre os Managers da camada Broker: não há um Handler associado ao seguinte elemento da interface do submanager: " + chamada.name + ")\n" ;
+		  								}
+		  							}else{
+		  								msgErro = msgErro + "\nInconsistência entre os Managers da camada Broker: (elemento não encontrado na interface do subManager : " + chamada.name + ")\n" ;
+		  							}
+		  						}
+	  						}
+				 
+				        }
+				        
+							
+					
+				      msgErro = "";    
+				      i = 0;
+				      var primitiveResourceManagers = Broker!PrimitiveResourceManager.allInstances;
+				      var handlers; 
+				        
+				      //Verificando as dependências bottom-up entre os Managers
+					  while (i < (managers.size() - 1)){
+						   
+						   /*Verificando se existem realmente primitiveResourceManagers 
+						     de forma que se possa realizar a verificação bottom-up */ 
+							if (primitiveResourceManagers.size() < managers.size() - 1)
+						   		return "";
+						   
+						   
+			  			   var managerPrincipal = managers[i];	
+						   managerTop =  primitiveResourceManagers[i];
+						   i = i + 1;
+						   managerBottom = managers[i];
+						 
+					 	   interfaceRequerida = null;
+						   interfaceProvida = null;
+					 	   
+					 	   interfaceProvida  =  managerTop.ifaceResourceManager.selectOne(interface|interface <> null);
+					 	   interfaceRequerida = managerBottom.iface.selectOne(interface|interface.Name = "Requerida");
+					 	    
+					 	   handlers  = managerPrincipal.handlers.select(handler|handler.signal <> null);
+					 	
+					 	   if(interfaceRequerida <> null and interfaceProvida <> null){
+						 	   for(evento in interfaceRequerida.signals){
+		  							if (interfaceProvida.signals.exists(signals|signals.name == evento.name)){
+		  								if(handlers.size() > 1 and handlers.exists(handler|handler.signal.name == evento.name)){
+		  									
+		  									var handlerSelecionado = handlers.select(handler|handler.signal.name == evento.name);
+			  				
+			  								if(handlerSelecionado.action.macroAction.exists(ma|ma <> null)){
+		  										//"MacroAction encontrada".println();
+						  					}else{
+						  					 	msgErro = msgErro + "\nInconsistência entre o TopManager e o BottomManager: (Não há uma MacroAction associada ao Handler do seguinte elemento do TopManager: " + evento.name + ")\n" ;
+						  					    msgErro = msgErro + "\n teste \n" ;
+						  					}
+		  								}else{
+		  									msgErro = msgErro + "\nInconsistência entre os Managers da camada Broker: (Não há um Handler associado ao seguinte elemento da interface do topManager: " + evento.name + ")\n" ;
+		  								}
+		  							}else{
+		  								msgErro = msgErro + "\nInconsistência entre os Managers da camada Broker: (elemento não encontrado na interface do topManager: " + evento.name + ")\n" ;
+		  							}
+		  						}
+	  						}
+				        }
+				 		if(msgErro <> ""){
+							return msgErro;
+						}else
+							return "\n";
+					}else
+			 			return "\n";
+		  
+			}
+		 	 		
+	}
+	   
+ }
+

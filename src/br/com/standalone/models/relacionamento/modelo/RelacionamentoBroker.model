@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Raiz xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://metamodelorelacionamento" xmi:id="_TEglUN2dEeeL7dsdwVnimg">
+  <relacionamento xmi:id="_TkSRkN2dEeeL7dsdwVnimg">
+    <refFeature xmi:id="_Ux0bsN2dEeeL7dsdwVnimg" cardinalidadeMin="1" cardinalidadeMax="1">
+      <features href="../../feature/modelo/FeatureModel.model#_jvWpENrLEeeZj8Qteie8Qg"/>
+    </refFeature>
+    <refConstrucaoMetamodeloMiddleware xmi:id="_UOo2IN2dEeeL7dsdwVnimg" cardinalidadeMin="1" cardinalidadeMax="1">
+      <construcaoMetamodeloMiddleware href="../../middleware/metamodelo/MetamodeloMiddleware.ecore#//Manager"/>
+    </refConstrucaoMetamodeloMiddleware>
+    <refConstrucaoMetamodeloMiddleware xmi:id="_6eiqQN2eEeeL7dsdwVnimg" cardinalidadeMin="4" cardinalidadeMax="4">
+      <construcaoMetamodeloMiddleware href="../../middleware/metamodelo/MetamodeloMiddleware.ecore#//common/MacroAction"/>
+    </refConstrucaoMetamodeloMiddleware>
+  </relacionamento>
+</Raiz>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Root xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://metamodelofeature" xmi:id="_iD8QINrLEeeZj8Qteie8Qg">
+  <feature xmi:id="_jvWpENrLEeeZj8Qteie8Qg" nome="AddController" mandatory="true"/>
+  <feature xmi:id="_l90EsNrLEeeZj8Qteie8Qg" nome="AddDevice" mandatory="true"/>
+</Root>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Manager xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://metamodelobroker" xmi:id="_4gRdUODsEeeRHv7muspRRA" name="Principal">
+  <featureDSML>AddController</featureDSML>
+  <iface xmi:id="_67zEkODsEeeRHv7muspRRA" Name="Provida">
+    <featureDSML>AddController</featureDSML>
+  </iface>
+  <iface xmi:id="_9AAYAODsEeeRHv7muspRRA" Name="Requerida">
+    <featureDSML>AddController</featureDSML>
+  </iface>
+  <resourceManager xsi:type="Manager" xmi:id="_Fcs3gODtEeeRHv7muspRRA" name="ManagerLocal">
+    <featureDSML>AddController</featureDSML>
+    <iface xmi:id="_GPMEYODtEeeRHv7muspRRA" Name="Provida">
+      <featureDSML>AddController</featureDSML>
+    </iface>
+    <iface xmi:id="_IgA3gODtEeeRHv7muspRRA" Name="Requerida">
+      <featureDSML>AddController</featureDSML>
+    </iface>
+  </resourceManager>
+  <resourceManager xsi:type="PrimitiveResourceManager" xmi:id="_cZqigODtEeeRHv7muspRRA">
+    <ifaceResourceManager xmi:id="_dimggODtEeeRHv7muspRRA">
+      <featureDSML>AddController</featureDSML>
+    </ifaceResourceManager>
+    <featureDSML>AddController</featureDSML>
+  </resourceManager>
+</Manager>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Manager xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://metamodelocontroller" xmlns:sb.base.common="http://www.inf.ufg.br/mestrado/sb/base/common" xsi:schemaLocation="http://metamodelocontroller http://www.inf.ufg.br/mestrado/sb/base/common" xmi:id="_ntR40M42EeeEMNorR2T1Uw" name="MainManager">
+  <ifaceResourceManager xmi:id="_y99i4M42EeeEMNorR2T1Uw" Name="Provida">
+    <provides xmi:id="_3sd5YM42EeeEMNorR2T1Uw" name="DispatchScript"/>
+    <signals xmi:id="_4yNZcM42EeeEMNorR2T1Uw" name="DefaultEvent"/>
+    <signals xmi:id="_5_Li4M42EeeEMNorR2T1Uw" name="ProcessMEvent"/>
+  </ifaceResourceManager>
+  <iface xmi:id="_yo2OgM42EeeEMNorR2T1Uw" Name="Requerida">
+    <provides xmi:id="_8M-Q8NLoEeeS9dhRCdvwNg" name="Start"/>
+    <provides xmi:id="_c5PAEc45EeeEMNorR2T1Uw" name="AddDevice"/>
+    <provides xmi:id="_c5PAEs45EeeEMNorR2T1Uw" name="RemDevice"/>
+    <provides xmi:id="_c5PAE845EeeEMNorR2T1Uw" name="AddCtrlr"/>
+    <provides xmi:id="_c5PAFM45EeeEMNorR2T1Uw" name="ProcessScript"/>
+    <provides xmi:id="_c5PAFc45EeeEMNorR2T1Uw" name="RemCtrlr"/>
+    <provides xmi:id="_c5PAFs45EeeEMNorR2T1Uw" name="SetCtrlrProperty"/>
+    <provides xmi:id="_c5PAF845EeeEMNorR2T1Uw" name="SetDevProperty"/>
+    <provides xmi:id="_c5PAGM45EeeEMNorR2T1Uw" name="GetDevProperty"/>
+    <provides xmi:id="_c5PAGc45EeeEMNorR2T1Uw" name="GetCtrlrProperty"/>
+    <signals xmi:id="_2VzocM42EeeEMNorR2T1Uw" name="DefaultEvent"/>
+  </iface>
+  <actions xsi:type="sb.base.common:MacroAction" xmi:id="_7y6xYM42EeeEMNorR2T1Uw" name="DispatchScript"/>
+  <actions xsi:type="sb.base.common:MacroAction" xmi:id="_8GcxYM42EeeEMNorR2T1Uw" name="DefaultEvent"/>
+  <actions xsi:type="sb.base.common:MacroAction" xmi:id="_8XO_YM42EeeEMNorR2T1Uw" name="ProcessMEvent"/>
+  <handlers xmi:id="_AvO6YM43EeeEMNorR2T1Uw" signal="_3sd5YM42EeeEMNorR2T1Uw"/>
+  <handlers xmi:id="_BIpf8M43EeeEMNorR2T1Uw" signal="_2VzocM42EeeEMNorR2T1Uw"/>
+  <handlers xmi:id="_BfwYYM43EeeEMNorR2T1Uw" signal="_5_Li4M42EeeEMNorR2T1Uw"/>
+  <resourceManager xsi:type="Manager" xmi:id="_qK6_8M42EeeEMNorR2T1Uw" name="EventManager">
+    <iface xmi:id="_JBoOYM43EeeEMNorR2T1Uw" Name="Provida">
+      <signals xmi:id="_PzgK0M43EeeEMNorR2T1Uw" name="DeviceFailed"/>
+      <signals xmi:id="_R6noUM43EeeEMNorR2T1Uw" name="ControllerFailed"/>
+    </iface>
+    <iface xmi:id="_JxY3YM43EeeEMNorR2T1Uw" Name="RequeridaException">
+      <signals xmi:id="_ND80UM43EeeEMNorR2T1Uw" name="ExceptionEvent"/>
+    </iface>
+    <iface xmi:id="_jezQwM43EeeEMNorR2T1Uw" Name="RequeridaMainManager">
+      <signals xmi:id="_mYurQM43EeeEMNorR2T1Uw" name="DefaultEvent"/>
+    </iface>
+    <actions xsi:type="sb.base.common:MacroAction" xmi:id="_pjmEwM43EeeEMNorR2T1Uw" name="DeviceFailed" impl=""/>
+    <actions xsi:type="sb.base.common:MacroAction" xmi:id="_p5zlUM43EeeEMNorR2T1Uw" name="ControllerFailed"/>
+    <handlers xmi:id="_tlJ1sM43EeeEMNorR2T1Uw" signal="_PzgK0M43EeeEMNorR2T1Uw"/>
+    <handlers xmi:id="_t84ZMM43EeeEMNorR2T1Uw" signal="_R6noUM43EeeEMNorR2T1Uw"/>
+  </resourceManager>
+  <resourceManager xsi:type="Manager" xmi:id="_vSTJcM42EeeEMNorR2T1Uw" name="ScriptManager">
+    <iface xmi:id="_JQZNsM44EeeEMNorR2T1Uw" Name="Provida">
+      <provides xmi:id="_Rb52kM44EeeEMNorR2T1Uw" name="Start"/>
+      <provides xmi:id="_Rw-HoM44EeeEMNorR2T1Uw" name="AddDevice"/>
+      <provides xmi:id="_SGGDEM44EeeEMNorR2T1Uw" name="RemDevice"/>
+      <provides xmi:id="_SemCoM44EeeEMNorR2T1Uw" name="AddCtrlr"/>
+      <provides xmi:id="_S030oM44EeeEMNorR2T1Uw" name="ProcessScript"/>
+      <provides xmi:id="_TKsToM44EeeEMNorR2T1Uw" name="RemCtrlr"/>
+      <provides xmi:id="_TlZSoM44EeeEMNorR2T1Uw" name="SetCtrlrProperty"/>
+      <provides xmi:id="_T6_IIM44EeeEMNorR2T1Uw" name="SetDevProperty"/>
+      <provides xmi:id="_UNmiIM44EeeEMNorR2T1Uw" name="GetDevProperty"/>
+      <provides xmi:id="_UhSTIM44EeeEMNorR2T1Uw" name="GetCtrlrProperty"/>
+    </iface>
+    <iface xmi:id="_Jt63MM44EeeEMNorR2T1Uw" Name="Requerida">
+      <provides xmi:id="_lCjtEM44EeeEMNorR2T1Uw" name="Start"/>
+      <provides xmi:id="_lee0EM44EeeEMNorR2T1Uw" name="AddLocalCtrlr"/>
+      <provides xmi:id="_l_SbEM44EeeEMNorR2T1Uw" name="AddDevice"/>
+      <provides xmi:id="_mTvBEM44EeeEMNorR2T1Uw" name="RequestDevProperty"/>
+      <provides xmi:id="_mn8WgM44EeeEMNorR2T1Uw" name="RequestCtrlrProperty"/>
+      <provides xmi:id="_m7oukM44EeeEMNorR2T1Uw" name="RemDevice"/>
+      <provides xmi:id="_nTIokM44EeeEMNorR2T1Uw" name="RemLocalCtrlr"/>
+      <provides xmi:id="_no3oAM44EeeEMNorR2T1Uw" name="SetDevProperty"/>
+      <provides xmi:id="_n-suEM44EeeEMNorR2T1Uw" name="SetCtrlrProperty"/>
+      <provides xmi:id="_oXBugM44EeeEMNorR2T1Uw" name="OpenCtrlr"/>
+      <provides xmi:id="_oxCxAM44EeeEMNorR2T1Uw" name="CloseCtrlr"/>
+      <provides xmi:id="_pDSXkM44EeeEMNorR2T1Uw" name="OpenDev"/>
+      <provides xmi:id="_pYo8gM44EeeEMNorR2T1Uw" name="CloseDev"/>
+    </iface>
+    <actions xsi:type="sb.base.common:MacroAction" xmi:id="_5p-dAM44EeeEMNorR2T1Uw" name="Start"/>
+    <actions xsi:type="sb.base.common:MacroAction" xmi:id="_8EO48M44EeeEMNorR2T1Uw" name="AddDevice"/>
+    <actions xsi:type="sb.base.common:MacroAction" xmi:id="_8d8ZcM44EeeEMNorR2T1Uw" name="RemDevice"/>
+    <actions xsi:type="sb.base.common:MacroAction" xmi:id="_8zZFAM44EeeEMNorR2T1Uw" name="AddCtrlr"/>
+    <actions xsi:type="sb.base.common:MacroAction" xmi:id="_9XPY8M44EeeEMNorR2T1Uw" name="ProcessScript"/>
+    <actions xsi:type="sb.base.common:MacroAction" xmi:id="_9w4oAM44EeeEMNorR2T1Uw" name="RemCtrlr"/>
+    <actions xsi:type="sb.base.common:MacroAction" xmi:id="_-GxYcM44EeeEMNorR2T1Uw" name="SetCtrlrProperty" impl=""/>
+    <actions xsi:type="sb.base.common:MacroAction" xmi:id="_-gBl8M44EeeEMNorR2T1Uw" name="SetDevProperty"/>
+    <actions xsi:type="sb.base.common:MacroAction" xmi:id="_-3JFcM44EeeEMNorR2T1Uw" name="GetDevProperty"/>
+    <actions xsi:type="sb.base.common:MacroAction" xmi:id="__KSq8M44EeeEMNorR2T1Uw" name="GetCtrlrProperty"/>
+    <handlers xmi:id="_JjzccM45EeeEMNorR2T1Uw" signal="_Rb52kM44EeeEMNorR2T1Uw"/>
+    <handlers xmi:id="_Kj5AcM45EeeEMNorR2T1Uw" signal="_Rw-HoM44EeeEMNorR2T1Uw"/>
+    <handlers xmi:id="_K8wzcM45EeeEMNorR2T1Uw" signal="_SGGDEM44EeeEMNorR2T1Uw"/>
+    <handlers xmi:id="_LVte8M45EeeEMNorR2T1Uw" signal="_SemCoM44EeeEMNorR2T1Uw"/>
+    <handlers xmi:id="_LrTUcM45EeeEMNorR2T1Uw" signal="_S030oM44EeeEMNorR2T1Uw"/>
+    <handlers xmi:id="_MCaz8M45EeeEMNorR2T1Uw" signal="_TKsToM44EeeEMNorR2T1Uw"/>
+    <handlers xmi:id="_MhnRYM45EeeEMNorR2T1Uw" signal="_TlZSoM44EeeEMNorR2T1Uw"/>
+    <handlers xmi:id="_NEt-cM45EeeEMNorR2T1Uw" signal="_T6_IIM44EeeEMNorR2T1Uw"/>
+    <handlers xmi:id="_Nkd1gM45EeeEMNorR2T1Uw" signal="_UNmiIM44EeeEMNorR2T1Uw"/>
+    <handlers xmi:id="_OJAF8M45EeeEMNorR2T1Uw" signal="_UhSTIM44EeeEMNorR2T1Uw"/>
+  </resourceManager>
+  <resourceManager xsi:type="Manager" xmi:id="_wiPuYM42EeeEMNorR2T1Uw" name="ExceptionManager">
+    <iface xmi:id="_0DlRsM43EeeEMNorR2T1Uw" Name="Provida">
+      <signals xmi:id="_4w3gMM43EeeEMNorR2T1Uw" name="ExceptionEvent"/>
+    </iface>
+    <iface xmi:id="_2Ob_sM43EeeEMNorR2T1Uw" Name="Requerida">
+      <signals xmi:id="_6CuwsM43EeeEMNorR2T1Uw" name="ProcessMEvent"/>
+    </iface>
+    <actions xsi:type="sb.base.common:MacroAction" xmi:id="_C46HMM44EeeEMNorR2T1Uw" name="ExceptionEvent"/>
+    <handlers xmi:id="_FcUfIM44EeeEMNorR2T1Uw" signal="_ND80UM43EeeEMNorR2T1Uw"/>
+  </resourceManager>
+</Manager>

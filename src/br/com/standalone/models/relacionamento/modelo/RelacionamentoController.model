@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Raiz xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://metamodelorelacionamento" xmi:id="_gee3IN2dEeeL7dsdwVnimg">
+  <relacionamento xmi:id="_hVwdYN2dEeeL7dsdwVnimg">
+    <refFeature xmi:id="_iG_GAN2dEeeL7dsdwVnimg" cardinalidadeMin="1" cardinalidadeMax="1">
+      <features href="../../feature/modelo/FeatureModel.model#_jvWpENrLEeeZj8Qteie8Qg"/>
+    </refFeature>
+    <refConstrucaoMetamodeloMiddleware xmi:id="_hjPfwN2dEeeL7dsdwVnimg" cardinalidadeMin="1" cardinalidadeMax="1">
+      <construcaoMetamodeloMiddleware href="../../middleware/metamodelo/MetamodeloMiddleware.ecore#//Manager"/>
+    </refConstrucaoMetamodeloMiddleware>
+  </relacionamento>
+</Raiz>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ASCII"?>
+<Manager xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns="http://metamodelosynthesis" xmi:id="_j63_IN2VEeeL7dsdwVnimg">
+  <featureDSML>AddController</featureDSML>
+  <iface xmi:id="_P_v4AN2WEeeL7dsdwVnimg" Name="Requerida">
+    <provides xmi:id="_TTUhkN2WEeeL7dsdwVnimg" name="DispatchScript"/>
+  </iface>
+  <iface xmi:id="_QeV4gN2WEeeL7dsdwVnimg" Name="Provida">
+    <signals xmi:id="_T3j3EN2WEeeL7dsdwVnimg" name="DefaultEvent"/>
+  </iface>
+  <action xmi:id="_cnjGAN2WEeeL7dsdwVnimg" name="DefaultEvent"/>
+  <handlers xmi:id="_byYYkN2WEeeL7dsdwVnimg" signal="_T3j3EN2WEeeL7dsdwVnimg"/>
+</Manager>
